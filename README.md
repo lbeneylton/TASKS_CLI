@@ -2,6 +2,8 @@
 
 Um gerenciador de tarefas via terminal, que tem persistencia de dados em um arquivo JSON com data e horario de criação e de atualização.
 
+Feito para tarefa do [Roadmap](https://roadmap.sh/projects/task-tracker)
+
 ## Aprendizados
 
 Gerenciar arquivos Json com libs nativas
@@ -26,6 +28,7 @@ Construir um app com comandos via terminal
 ```bash
 git clone https://github.com/lbeneylton/TASKS_CLI
 cd TASKS_CLI
+start.bat
 ```
 
 ## Features Futuras
