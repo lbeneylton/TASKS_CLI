@@ -1,1 +1,1 @@
-from .task import main
+from .cli import main
