@@ -19,8 +19,8 @@ Um gerenciador de tarefas via terminal, que tem persistencia de dados em um arqu
 ## Como utilizar esta aplicação
 
 ```bash
-git clone https://
-cd 
+git clone https://github.com/lbeneylton/TASKS_CLI
+cd TASKS_CLI
 ```
 
 ## Features Futuras
