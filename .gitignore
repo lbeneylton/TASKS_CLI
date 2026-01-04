@@ -1,2 +1,5 @@
 *.json
-*/__pycache__/
+.venv
+/src/__pycache__/
+/src/cli/__pycache__/
+/src/core/__pycache__/

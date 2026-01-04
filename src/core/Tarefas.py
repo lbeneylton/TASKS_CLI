@@ -109,25 +109,28 @@ class Tasks():
         """Lista todas as tarefas ou por status específico"""
         if status is None or status >= len(STATUS):
             return self.tarefas
-        return [tarefa for tarefa in self.tarefas if tarefa["status"] == STATUS[status]]
+        status_filtro = STATUS[status]
+        return [tarefa for tarefa in self.tarefas
+                if tarefa["status"] == status_filtro]
 
 
-# Testes rapidos
-tasks = Tasks()
+if __name__ == "__main__":
+    # Testes rapidos
+    tasks = Tasks()
 
-# Adicionar
-t1 = tasks.adicionar_tarefa("Estudar Python")
-t2 = tasks.adicionar_tarefa("Fazer exercício")
+    # Adicionar
+    t1 = tasks.adicionar_tarefa("Estudar Python")
+    t2 = tasks.adicionar_tarefa("Fazer exercício")
 
-# Atualizar
-tasks.atualizar_tarefa(t1["id_tarefa"], "Estudar Python 3")
+    # Atualizar
+    tasks.atualizar_tarefa(t1["id_tarefa"], "Estudar Python 3")
 
-# Mudar status
-tasks.marcar_tarefa_concluida(t1["id_tarefa"])
+    # Mudar status
+    tasks.marcar_tarefa_concluida(t1["id_tarefa"])
 
-# Deletar
-tasks.deletar_tarefa(t2["id_tarefa"])
+    # Deletar
+    tasks.deletar_tarefa(t2["id_tarefa"])
 
-# Listar
-print(tasks.listar_tarefas())           # todas
-print(tasks.listar_tarefas(2))
+    # Listar
+    print(tasks.listar_tarefas())           # todas
+    print(tasks.listar_tarefas(2))

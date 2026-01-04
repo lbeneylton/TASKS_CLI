@@ -1,0 +1,12 @@
+[project]
+name = "tasks"
+version = "0.1.0"
+
+[project.scripts]
+task = "task_cli.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

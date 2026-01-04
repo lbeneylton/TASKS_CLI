@@ -2,6 +2,11 @@
 
 Um gerenciador de tarefas via terminal, que tem persistencia de dados em um arquivo JSON com data e horario de criação e de atualização.
 
+## Aprendizados
+
+Gerenciar arquivos Json com libs nativas
+Construir um app com comandos via terminal
+
 ## Principais funções via terminal
 
 - Adicionar Tarefa
