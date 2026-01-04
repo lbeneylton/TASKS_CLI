@@ -1,6 +1,8 @@
 from datetime import datetime as dt
+from Arquivo import Json
 
 STATUS = ['Pendente', 'Em andamento', 'Concluída']
+FILE = Json("tasks.json")
 
 
 def pegar_hora() -> str:
@@ -10,8 +12,9 @@ def pegar_hora() -> str:
 class Tasks():
     def __init__(self) -> None:
         self.tarefas: list[dict] = []
+        self._ler_dados()
 
-    def criar_id(self) -> str:
+    def _criar_id(self) -> str:
         return dt.now().strftime("%Y%m%d%H%M%S%f")
 
     def _pegar_tarefa(self, id_tarefa: str) -> dict | None:
@@ -19,6 +22,14 @@ class Tasks():
             if tarefa['id_tarefa'] == id_tarefa:
                 return tarefa
         return None
+
+    def _ler_dados(self):
+        """Recupera os dados do arquivo"""
+        self.tarefas = FILE.read()
+
+    def _escrever_dados(self):
+        """Salva os dados no arquivo"""
+        FILE.write(self.tarefas)
 
     # ================ CHANGE STATUS ================
 
@@ -32,6 +43,7 @@ class Tasks():
 
         tarefa["status"] = STATUS[status]
         tarefa["atualizada"] = pegar_hora()
+        self._escrever_dados()  # salva alteração no arquivo
         return tarefa
 
     # ================ CREATE TASK ================
@@ -42,12 +54,13 @@ class Tasks():
 
         hora: str = pegar_hora()
         data: dict = {
-            "id_tarefa": self.criar_id(),
+            "id_tarefa": self._criar_id(),
             "descricao": descricao,
             "status": status,
             "criada": hora,
             "atualizada": hora}
         self.tarefas.append(data)
+        self._escrever_dados()  # salvando alteração no arquivo
         return data
 
     # ================= READ TASK =================
@@ -66,6 +79,7 @@ class Tasks():
         tarefa["descricao"] = descricao
         tarefa["atualizada"] = pegar_hora()
 
+        self._escrever_dados()  # salvando alteração no arquivo
         return tarefa
 
     # ================ DELETE TASK ================
@@ -75,6 +89,7 @@ class Tasks():
             return "Tarefa não encontrada"
 
         self.tarefas = [t for t in self.tarefas if t["id_tarefa"] != id_tarefa]
+        self._escrever_dados()  # salvando alteração no arquivo
         return self.tarefas
 
 # --------------------------------------------------------------------------------
@@ -89,3 +104,30 @@ class Tasks():
 
     def marcar_tarefa_concluida(self, id_tarefa: str) -> dict | str:
         return self._mudar_status(id_tarefa, 2)
+
+    def listar_tarefas(self, status: int | None = None) -> list[dict]:
+        """Lista todas as tarefas ou por status específico"""
+        if status is None or status >= len(STATUS):
+            return self.tarefas
+        return [tarefa for tarefa in self.tarefas if tarefa["status"] == STATUS[status]]
+
+
+# Testes rapidos
+tasks = Tasks()
+
+# Adicionar
+t1 = tasks.adicionar_tarefa("Estudar Python")
+t2 = tasks.adicionar_tarefa("Fazer exercício")
+
+# Atualizar
+tasks.atualizar_tarefa(t1["id_tarefa"], "Estudar Python 3")
+
+# Mudar status
+tasks.marcar_tarefa_concluida(t1["id_tarefa"])
+
+# Deletar
+tasks.deletar_tarefa(t2["id_tarefa"])
+
+# Listar
+print(tasks.listar_tarefas())           # todas
+print(tasks.listar_tarefas(2))

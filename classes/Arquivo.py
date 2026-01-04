@@ -8,6 +8,17 @@ class Json:
         if not os.path.exists(file):
             with open(self.file, 'w') as f:
                 json.dump([], f)
+        else:
+            # se existir mas não for lista, corrige
+            try:
+                with open(self.file, 'r') as f:
+                    data = json.load(f)
+                if not isinstance(data, list):
+                    with open(self.file, 'w') as f:
+                        json.dump([], f)
+            except json.JSONDecodeError:
+                with open(self.file, 'w') as f:
+                    json.dump([], f)
 
     def read(self) -> list:
         try:
