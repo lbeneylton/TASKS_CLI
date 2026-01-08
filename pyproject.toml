@@ -1,12 +1,23 @@
-[project]
+[tool.poetry]
 name = "tasks"
 version = "0.1.0"
+description = "Exemplo de pacote com src layout"
+authors = ["Lucas Beneylton <lbeneylton17@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "cli", from = "src" },
+    { include = "core", from = "src" }
+]
 
-[project.scripts]
-task = "cli:main"
 
-[tool.setuptools]
-package-dir = {"" = "src"}
+[tool.poetry.dependencies]
+python = "^3.11"
 
-[tool.setuptools.packages.find]
-where = ["src"]
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0"
+
+
+
+[tool.poetry.scripts]
+task = "cli.cli:main"

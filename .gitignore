@@ -13,3 +13,5 @@ __pycache__/
 
 # Diretórios de teste
 /tests/
+
+.pytest_cache/

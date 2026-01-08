@@ -1,5 +1,5 @@
 from datetime import datetime as dt
-from Arquivo import Json
+from .arquivo import Json
 
 STATUS = ['Pendente', 'Em andamento', 'Concluída']
 FILE = Json("tasks.json")
