@@ -1,7 +1,7 @@
 from datetime import datetime as dt
-from .arquivo import Json
+from .Arquivo import Json
 
-STATUS = ['Pendente', 'Em andamento', 'Concluída']
+STATUS = ["Pendente", "Em andamento", "Concluída"]
 FILE = Json("tasks.json")
 
 
@@ -9,7 +9,7 @@ def pegar_hora() -> str:
     return dt.now().strftime("%d-%m-%Y %H:%M:%S")
 
 
-class Tasks():
+class Tasks:
     def __init__(self) -> None:
         self.tarefas: list[dict] = []
         self._ler_dados()
@@ -19,7 +19,7 @@ class Tasks():
 
     def _pegar_tarefa(self, id_tarefa: str) -> dict | None:
         for tarefa in self.tarefas:
-            if tarefa['id_tarefa'] == id_tarefa:
+            if tarefa["id_tarefa"] == id_tarefa:
                 return tarefa
         return None
 
@@ -58,7 +58,8 @@ class Tasks():
             "descricao": descricao,
             "status": status,
             "criada": hora,
-            "atualizada": hora}
+            "atualizada": hora,
+        }
         self.tarefas.append(data)
         self._escrever_dados()  # salvando alteração no arquivo
         return data
@@ -92,7 +93,7 @@ class Tasks():
         self._escrever_dados()  # salvando alteração no arquivo
         return self.tarefas
 
-# --------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------
 
     # ================ MARK STATUS ================
 
@@ -110,8 +111,7 @@ class Tasks():
         if status is None or status >= len(STATUS):
             return self.tarefas
         status_filtro = STATUS[status]
-        return [tarefa for tarefa in self.tarefas
-                if tarefa["status"] == status_filtro]
+        return [tarefa for tarefa in self.tarefas if tarefa["status"] == status_filtro]
 
 
 if __name__ == "__main__":
@@ -132,5 +132,5 @@ if __name__ == "__main__":
     tasks.deletar_tarefa(t2["id_tarefa"])
 
     # Listar
-    print(tasks.listar_tarefas())           # todas
+    print(tasks.listar_tarefas())  # todas
     print(tasks.listar_tarefas(2))

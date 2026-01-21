@@ -1,2 +1,2 @@
-from .arquivo import Json
-from .tarefas import Tasks
+from .Arquivo import Json
+from .Tarefas import Tasks
